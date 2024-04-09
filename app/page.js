@@ -12,4 +12,6 @@ export default function Home() {
       <Link href="company-profile" className="text-blue-600">company profile</Link>
     </main>
   );
+
 }
+  

@@ -1,11 +1,12 @@
 import Link from "next/link";
+import Image from "next/image";
 
 function Post({ post }) {
   return (
     <div className="flex justify-center">
       <div className="max-w-md mx-auto">
         <div className="bg-gray-800 shadow-lg rounded-lg overflow-hidden my-10">
-          <img src={post.image} className="w-full h-64 object-cover" alt={post.title} />
+          <Image src={post.image} width={500} height={500} className="w-full h-64 object-cover" alt={post.title} />
           <div className="px-6 py-4">
             <div className="font-bold text-xl mb-2 text-white">{post.title}</div>
             <p className="text-gray-300 text-base">{post.desc}</p>

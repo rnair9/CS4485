@@ -3,6 +3,7 @@ import Link from "next/link";
 import Navbar from "../components/navbar/Navbar";
 import Post from "../components/postComponent/Post";
 
+
 export default function Home() {
   const posts = [
     {

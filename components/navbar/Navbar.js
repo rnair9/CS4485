@@ -1,8 +1,20 @@
+"use client";
 import Link from "next/link";
 import Logout from "../../app/logout";
-import {getServerSession} from "next-auth";
-const session = await getServerSession();
+import { getServerSession } from "next-auth";
+import { useState, useEffect } from "react";
+
 export default function Navbar() {
+  const [session, setSession] = useState(null);
+
+  useEffect(() => {
+    const fetchSession = async () => {
+      const sessionData = await getServerSession();
+      setSession(sessionData);
+    };
+    fetchSession();
+  }, []);
+
   return (
     <nav className="bg-gray-800">
       <div className=" mx-auto px-4 sm:px-6 lg:px-8">
@@ -16,31 +28,24 @@ export default function Navbar() {
           <div className="hidden md:block">
             <div className="flex items-center">
               {/* Navbar links */}
-              <a
-                href="#"
-                className="text-gray-300 hover:bg-gray-700 hover:text-white px-3 py-2 rounded-md text-sm font-medium"
-              >
+              <Link className="text-gray-300 hover:bg-gray-700 hover:text-white px-3 py-2 rounded-md text-sm font-medium" href="/">
                 Home
-              </a>
-              <a
-                href="#"
-                className="text-gray-300 hover:bg-gray-700 hover:text-white px-3 py-2 rounded-md text-sm font-medium"
-              >
+              </Link>
+              <Link className="text-gray-300 hover:bg-gray-700 hover:text-white px-3 py-2 rounded-md text-sm font-medium" href="/about">
                 About
-              </a>
-              <a
-                href="#"
-                className="text-gray-300 hover:bg-gray-700 hover:text-white px-3 py-2 rounded-md text-sm font-medium"
-              >
-                {!!session && <Logout />}
-                {!session && <Link href="/login">Login</Link>}
-              </a>
-              <a
-                href="#"
-                className="text-gray-300 hover:bg-gray-700 hover:text-white px-3 py-2 rounded-md text-sm font-medium"
-              >
-                {!session && <Link href="/login">Register</Link>}
-              </a>
+              </Link>
+              {!!session ? (
+                <Logout />
+              ) : (
+                <>
+                  <Link className="text-gray-300 hover:bg-gray-700 hover:text-white px-3 py-2 rounded-md text-sm font-medium" href="/login">
+                    Login
+                  </Link>
+                  <Link className="text-gray-300 hover:bg-gray-700 hover:text-white px-3 py-2 rounded-md text-sm font-medium" href="/register">
+                    Register
+                  </Link>
+                </>
+              )}
             </div>
           </div>
         </div>

@@ -30,7 +30,7 @@ export default function Form() {
 			<p className="font-semibold pb-1 pt-5">Value (USD)</p>
 			<input name="grantvalue" className="border border-black text-black" type="number" min="1"/>
 			<p className="font-semibold pb-1 pt-5">Description</p>
-			<textarea name="description" rows="8" className="border border-black text-black" required></textarea>
+			<textarea name="description" rows={8} className="border border-black text-black" required></textarea>
 			<p className="pb-5"/>
             <button type="submit" className="bg-black hover:bg-blue-700 text-white font-bold py-2 px-4 rounded-full">Post</button>
         </form>

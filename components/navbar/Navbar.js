@@ -32,7 +32,7 @@ export default function Navbar({ session }) {
               </Link>
               <Link
                 className="text-gray-300 hover:bg-gray-700 hover:text-white px-3 py-2 rounded-md text-sm font-medium"
-                href="/about"
+                href="/about-us"
               >
                 About
               </Link>

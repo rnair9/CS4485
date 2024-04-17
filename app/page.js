@@ -1,10 +1,12 @@
-import Image from "next/image";
 import Link from "next/link";
 import Navbar from "../components/navbar/Navbar";
 import Post from "../components/postComponent/Post";
+import {getServerSession} from "next-auth";
 
 
-export default function Home() {
+export default async function Home() {
+  const session = await getServerSession()
+  // console.log(session)
   const posts = [
     {
       "id": 1,
@@ -44,7 +46,7 @@ export default function Home() {
   ];
   return (
     <main className="min-h-screen items-center justify-between">
-      <Navbar />
+      <Navbar session={session}/>
       <div className="flex justify-center">
         <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
           {posts.map((post, index) => (

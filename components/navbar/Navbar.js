@@ -1,19 +1,17 @@
 "use client";
 import Link from "next/link";
-import Logout from "../../app/logout";
-import { getServerSession } from "next-auth";
-import { useState, useEffect } from "react";
+import { signOut } from "next-auth/react";
 
-export default function Navbar() {
-  const [session, setSession] = useState(null);
+export default function Navbar({ session }) {
+  console.log(session);
 
-  useEffect(() => {
-    const fetchSession = async () => {
-      const sessionData = await getServerSession();
-      setSession(sessionData);
-    };
-    fetchSession();
-  }, []);
+  const handleClick = async() => {
+    try {
+      await signOut()
+    } catch (error) {
+      console.error("Logout failed", error);
+    }
+  };
 
   return (
     <nav className="bg-gray-800">
@@ -21,27 +19,42 @@ export default function Navbar() {
         <div className="flex items-center justify-between h-16">
           <div className="flex items-center">
             <div className="flex-shrink-0">
-              {/* Your logo or brand icon */}
               <span className="text-white">CauseWay</span>
             </div>
           </div>
           <div className="hidden md:block">
             <div className="flex items-center">
-              {/* Navbar links */}
-              <Link className="text-gray-300 hover:bg-gray-700 hover:text-white px-3 py-2 rounded-md text-sm font-medium" href="/">
+              <Link
+                className="text-gray-300 hover:bg-gray-700 hover:text-white px-3 py-2 rounded-md text-sm font-medium"
+                href="/"
+              >
                 Home
               </Link>
-              <Link className="text-gray-300 hover:bg-gray-700 hover:text-white px-3 py-2 rounded-md text-sm font-medium" href="/about">
+              <Link
+                className="text-gray-300 hover:bg-gray-700 hover:text-white px-3 py-2 rounded-md text-sm font-medium"
+                href="/about"
+              >
                 About
               </Link>
               {!!session ? (
-                <Logout />
+                <button
+                  className="text-gray-300 hover:bg-gray-700 hover:text-white px-3 py-2 rounded-md text-sm font-medium"
+                  onClick={handleClick}
+                >
+                  Logout
+                </button>
               ) : (
                 <>
-                  <Link className="text-gray-300 hover:bg-gray-700 hover:text-white px-3 py-2 rounded-md text-sm font-medium" href="/login">
+                  <Link
+                    className="text-gray-300 hover:bg-gray-700 hover:text-white px-3 py-2 rounded-md text-sm font-medium"
+                    href="/login"
+                  >
                     Login
                   </Link>
-                  <Link className="text-gray-300 hover:bg-gray-700 hover:text-white px-3 py-2 rounded-md text-sm font-medium" href="/register">
+                  <Link
+                    className="text-gray-300 hover:bg-gray-700 hover:text-white px-3 py-2 rounded-md text-sm font-medium"
+                    href="/register"
+                  >
                     Register
                   </Link>
                 </>

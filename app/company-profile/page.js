@@ -1,5 +1,12 @@
-export default function profile() {
+import Navbar from "../../components/navbar/Navbar"
+import {getServerSession} from "next-auth";
+
+
+export default async function profile() {
+  const session = await getServerSession()
     return (
+		<>
+		<Navbar session={session}/>
       <div className="p-16">
         <div className="container flex gap-14">
           <div style={{ width: 600 }}>
@@ -63,5 +70,6 @@ export default function profile() {
 		  </div>
         </div>
       </div>
+	  </>
     )
     }

@@ -1,6 +1,10 @@
 import Post from "../../components/postComponent/Post";
+import Navbar from "../../components/navbar/Navbar";
+import {getServerSession} from "next-auth";
 
-export default function profile() {
+
+export default async function profile() {
+  const session = await getServerSession()
   const post = {
     title: "Sample Title",
     desc: "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna",
@@ -10,6 +14,8 @@ export default function profile() {
   };
 
   return (
+    <>
+    <Navbar session={session}/>
     <div className="p-8">
       <h2 className="container text-3xl p-8">Org Name</h2>
       <div className="container flex gap-14">
@@ -35,7 +41,7 @@ export default function profile() {
         <div className="px-6">
           <p className="font-bold text-xl pb-4">Total raised: $ 3131.31</p>
           <div>
-            <Post post={post} />
+            <Post post={post} sharedBy={"Polat Alemdar"} />
           </div>
           <div className="flex flex-col gap-4 pt-4 w-full">
             <h1>Donors List</h1>
@@ -43,5 +49,6 @@ export default function profile() {
         </div>
       </div>
     </div>
+    </>
   );
 }

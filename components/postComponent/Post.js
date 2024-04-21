@@ -1,19 +1,33 @@
 import Link from "next/link";
 import Image from "next/image";
 
-function Post({ post }) {
+function Post({ post, sharedBy }) {
   return (
     <div className="flex justify-center">
       <div className="max-w-md mx-auto">
         <div className="bg-gray-800 shadow-lg rounded-lg overflow-hidden my-10">
-          <Image src={post.image} width={500} height={500} className="w-full h-64 object-cover" alt={post.title} />
+          <div className="relative h-64">
+            <Image 
+              src={post.image} 
+              layout="fill" 
+              objectFit="cover" 
+              alt={post.title} 
+              className="object-cover rounded-t-lg"
+            />
+          </div>
           <div className="px-6 py-4">
-            <div className="font-bold text-xl mb-2 text-white">{post.title}</div>
+            <h2 className="text-white text-xl font-bold mb-2">{post.title}</h2>
             <p className="text-gray-300 text-base">{post.desc}</p>
+            {sharedBy && (
+              <p className="text-gray-400 text-sm mt-2">
+                Shared by: {sharedBy}
+              </p>
+            )}
           </div>
           <div className="px-6 py-4 flex justify-center">
-            <Link href="#" className="bg-white hover:bg-gray-100 text-gray-800 font-semibold py-2 px-4 rounded-full transition duration-300">
-              Donate
+            <Link href="#" passHref className="bg-blue-500 hover:bg-blue-600 text-white font-semibold py-2 px-4 rounded-full transition duration-300">
+
+                Donate Now
             </Link>
           </div>
         </div>
@@ -21,4 +35,5 @@ function Post({ post }) {
     </div>
   );
 }
+
 export default Post;

@@ -54,7 +54,8 @@ export default async function Home() {
           ))}
         </div>
       </div>
-
+      <Link href="post-volunteer" className="text-blue-600">volunteer</Link>
+      <br/>
       <Link href="non-profit-profile" className="text-blue-600">Non profit profile prototype</Link>
       <br/>
       <Link href="person_profile" className="text-blue-600">person profile</Link>

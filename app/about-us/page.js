@@ -1,11 +1,6 @@
-import Navbar from "../../components/navbar/Navbar";
-import { getServerSession } from "next-auth";
-
 export default async function AboutUs() {
-  const session = await getServerSession();
   return (
     <>
-      <Navbar session={session} />
       <div className="mx-auto max-w-3xl">
         <div className="text-center">
           <h1 className="font-bold text-4xl py-8">ABOUT CAUSEWAY</h1>

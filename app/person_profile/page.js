@@ -1,12 +1,6 @@
-import Navbar from "../../components/navbar/Navbar";
-import {getServerSession} from "next-auth";
-
-
 export default async function profile() {
-  const session = await getServerSession()
     return (
       <>
-      <Navbar session={session}/>
       <div className="p-8">
         <form class="m-4 flex">
             <h2 className="container text-3xl p-8">John Smith</h2>

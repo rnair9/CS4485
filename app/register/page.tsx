@@ -1,7 +1,6 @@
 import Form from "./form";
 import {getServerSession} from "next-auth";
 import {redirect} from "next/navigation";
-import Navbar from "../../components/navbar/Navbar"
 
 export default async function RegisterPage() {
     const session = await getServerSession();
@@ -10,7 +9,6 @@ export default async function RegisterPage() {
     }
     return (
         <>
-        <Navbar session={session}/>
         <Form />
         </>
     )

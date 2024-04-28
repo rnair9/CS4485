@@ -2,6 +2,8 @@ import Link from "next/link";
 import Image from "next/image";
 
 function Post({ post, sharedBy }) {
+  console.log(post.title)
+  console.log(decodeURIComponent(post.title))
   return (
     <div className="flex justify-center">
       <div className="max-w-md mx-auto">
@@ -25,8 +27,7 @@ function Post({ post, sharedBy }) {
             )}
           </div>
           <div className="px-6 py-4 flex justify-center">
-            <Link href="#" passHref className="bg-blue-500 hover:bg-blue-600 text-white font-semibold py-2 px-4 rounded-full transition duration-300">
-
+            <Link href={"/donation/" + post.id} passHref className="bg-blue-500 hover:bg-blue-600 text-white font-semibold py-2 px-4 rounded-full transition duration-300">
                 Donate Now
             </Link>
           </div>

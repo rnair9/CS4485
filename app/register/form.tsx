@@ -7,7 +7,6 @@ export default function Form() {
     const handleSubmit = async (e: FormEvent<HTMLFormElement>) => {
         e.preventDefault();
         const formData = new FormData(e.currentTarget);
-        const router = useRouter();
         if (formData.get("accountType")=="Individual") {
             const response = await fetch(`/api/auth/registerIndividual`, {
                 method:"POST",

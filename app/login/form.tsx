@@ -12,6 +12,7 @@ export default function Form() {
         const response = await signIn('credentials', {
             email: formData.get("email"),
             password: formData.get("password"),
+            accountType: formData.get("accountType"),
             redirect: false,
         })
         console.log({response});
@@ -24,8 +25,16 @@ export default function Form() {
 
     return (
         <form onSubmit={handleSubmit} className="flex flex-col gap-2 mx-auto max-w-md mt-10">
-            <input name="email" className="border border-black text-black" type="email" />
-            <input name="password" className="border border-black text-black" type="password" />
+            <label htmlFor="accountType">Select the account type: </label>
+            <select name="accountType"  id="accountType">
+                <option value="Individual">Individual</option>
+                <option value="Company">Company</option>
+                <option value="Nonprofit">Nonprofit</option>
+            </select>
+            <label htmlFor="email">Email:</label>
+            <input name="email" id="email" required className="border border-black text-black" type="email" />
+            <label htmlFor="password">Password:</label>
+            <input name="password" id="password" required className="border border-black text-black" type="password" />
 			<button type="submit" className="bg-black hover:bg-blue-700 text-white font-bold py-1 px-4 rounded-full">Login</button>
         </form>
     )

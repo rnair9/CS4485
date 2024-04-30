@@ -3,7 +3,7 @@ import Link from "next/link";
 import { getSession, signOut } from "next-auth/react";
 
 export default function Navbar({ session }) {
-  console.log(session)
+  // console.log(session)
   const handleClick = async() => {
     try {
       await signOut()

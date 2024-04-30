@@ -70,7 +70,7 @@ export default function Form() {
                     <input name="companyname" id="companyname" required className="border border-black text-black" type="text" />
                     <label htmlFor="companydesc">Description:</label>
                     <input name="companydesc" id="companydesc" className="border border-black text-black" type="text" />
-                    <label htmlFor="companylogo">Logo:</label>
+                   <label htmlFor="companylogo">Logo:</label>
                     <input name="companylogo" id="companylogo" className="border border-black text-black" type="file" />
                 </>
             }

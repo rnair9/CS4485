@@ -2,8 +2,8 @@ import Link from "next/link";
 import Image from "next/image";
 
 function Post({ post, sharedBy }) {
-  console.log(post.title)
-  console.log(decodeURIComponent(post.title))
+  // console.log(post.title)
+  // console.log(decodeURIComponent(post.title))
   return (
     <div className="flex justify-center">
       <div className="max-w-md mx-auto">

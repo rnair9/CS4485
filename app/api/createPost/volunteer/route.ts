@@ -3,11 +3,11 @@ import {sql} from "@vercel/postgres";
 
 export async function POST(request: Request) {
     try {
-        const {name, description, category, nonprofitid} = await request.json();
-        console.log(name + " " + description+ " " + category +" " + nonprofitid)
+        const {name, description, date, nonprofitid} = await request.json();
+        // console.log(name + " " + description+ " " + date +" " + nonprofitid)
         const response = await sql
-        `INSERT INTO Initiative (name, description, category, nonprofitid)
-        VALUES (${name},${description},${category}, ${nonprofitid})`;
+        `INSERT INTO VolunteerEvent (name, description, eventdate, nonprofitid)
+        VALUES (${name},${description},${date}, ${nonprofitid})`;
     } catch (e) {
         console.log({e});
     }
@@ -15,7 +15,7 @@ export async function POST(request: Request) {
 }
 export async function GET(request:Request){
     
-    const response = await sql `SELECT * FROM Initiative`
+    const response = await sql `SELECT * FROM VolunteerEvent`
     const posts = response.rows
     // console.log(posts)
     return NextResponse.json({posts: posts});

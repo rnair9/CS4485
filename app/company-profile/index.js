@@ -1,21 +1,26 @@
 "use client";
 import { getSession } from "next-auth/react";
 import { useState, useEffect } from "react";
+import { useRouter } from "next/navigation";
 export default function Profile() {
-    const [name, setName] = useState("")
-    const [email, setEmail] = useState("")
-    const [logo, setLogo] = useState("")
-    const [description, setDescription] = useState("")
-
+  const [name, setName] = useState("")
+  const [email, setEmail] = useState("")
+  const [logo, setLogo] = useState("")
+  const [description, setDescription] = useState("")
+  
+  const router = useRouter();
     const session = getSession()
     const fetchUser = async () => {
+      if ((await session).user.role != "Company") {
+        router.push("/");
+      }
         const email1 = (await session).user.email
         const response = await fetch(`api/getUser/getCompany?email=${email1}`);
         const data = await response.json();
-        console.log(data)
-        let base64 = new Buffer.from(data.user.logo, "base64")
-        const imgString="data:image/jpg;base64,"+base64.toString("base64")
-        console.log(imgString)
+        // console.log(data)
+        // let base64 = new Buffer.from(data.user.logo, "base64")
+        // const imgString="data:image/jpg;base64,"+base64.toString("base64")
+        // console.log(imgString)
         setDescription(data.user.description)
         setEmail(data.user.email)
         setName(data.user.name)

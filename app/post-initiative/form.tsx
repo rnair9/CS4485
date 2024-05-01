@@ -32,7 +32,7 @@ export default function InitiativeForm() {
                 }),
             }
         );
-        console.log(response)
+        await router.push("/");
     };
 
     useEffect(() => {

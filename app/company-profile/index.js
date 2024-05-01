@@ -18,8 +18,8 @@ export default function Profile() {
         const response = await fetch(`api/getUser/getCompany?email=${email1}`);
         const data = await response.json();
         // console.log(data)
-        // let base64 = new Buffer.from(data.user.logo, "base64")
-        // const imgString="data:image/jpg;base64,"+base64.toString("base64")
+        let base64 = new Buffer.from(data.user.logo, "base64")
+        const imgString="data:image/jpg;base64,"+base64.toString("base64")
         // console.log(imgString)
         setDescription(data.user.description)
         setEmail(data.user.email)

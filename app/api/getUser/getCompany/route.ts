@@ -7,6 +7,6 @@ export async function GET(request: Request) {
     // console.log(email)
     const response = await sql `SELECT * FROM Company WHERE email=${email}`;
     const user = response.rows[0];
-    console.log(user)
+    // console.log(user)
     return NextResponse.json({ user: user });
   }

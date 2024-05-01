@@ -4,7 +4,7 @@ import {redirect} from "next/navigation";
 
 export default async function PostGrantPage() {
     const session = await getServerSession();
-    if (session) {
+    if (!session) {
         redirect("/");
     }
     return (

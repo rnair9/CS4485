@@ -2,12 +2,15 @@
 import Link from "next/link";
 import Post from "../components/postComponent/Post";
 import Volunteer from "../components/postComponent/Volunteer"
+import Grant from "../components/postComponent/Grant"
 import { useState, useEffect } from "react";
 import { getSession } from "next-auth/react";
 
 export default function Home() {
   const [posts, setPosts] = useState([]);
   const [isDonation, setIsDonation] = useState(true);
+  const [isGrant, setIsGrant] = useState(false);
+  const [isVolunteer, setIsVolunteer] = useState(false);
   const session = getSession();
 
   const fetchPosts = async () => {
@@ -16,6 +19,8 @@ export default function Home() {
     // console.log(data.posts)
     setPosts(data.posts);
     setIsDonation(true);
+    setIsVolunteer(false)
+    setIsGrant(false)
   };
 
   const fetchVolunteer = async () => {
@@ -24,6 +29,17 @@ export default function Home() {
     // console.log((await session).user.role);
     setPosts(data.posts);
     setIsDonation(false);
+    setIsVolunteer(true)
+    setIsGrant(false)
+  };
+
+  const fetchGrant = async () => {
+    const response = await fetch("api/createPost/grant");
+    const data = await response.json();
+    setPosts(data.posts);
+    setIsDonation(false);
+    setIsVolunteer(false)
+    setIsGrant(true)
   };
 
   useEffect(() => {
@@ -44,35 +60,61 @@ export default function Home() {
         <button
           onClick={fetchVolunteer}
           className={`mx-2 bg-blue-500 hover:bg-blue-600 text-white font-semibold py-2 px-4 rounded-full transition duration-300 ${
-            !isDonation ? "bg-gray-700" : ""
+            isVolunteer ? "bg-gray-700" : ""
           }`}
         >
           Fetch Volunteer
         </button>
+        <button
+          onClick={fetchGrant}
+          className={`mx-2 bg-blue-500 hover:bg-blue-600 text-white font-semibold py-2 px-4 rounded-full transition duration-300 ${
+            isGrant ? "bg-gray-700" : ""
+          }`}
+        >
+          Fetch Grant
+        </button>
       </div>
-      {isDonation ? (
+      {(isDonation && !isVolunteer && !isGrant) ? (
+    <>
         <div className="flex justify-center">
-          <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
-            {posts
-              .slice()
-              .reverse()
-              .map((post, index) => (
-                <Post post={post} key={post.initiativeid} />
-              ))}
-          </div>
+            <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
+                <h1 className="font-bold text-4xl py-8 text-center">Initiatives</h1>
+                {posts
+                    .slice()
+                    .reverse()
+                    .map((post, index) => (
+                        <Post post={post} key={post.initiativeid} />
+                    ))}
+            </div>
         </div>
-      ) : (
-        <div className="flex justify-center">
-          <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
+    </>
+) : (isVolunteer && !isGrant && !isDonation) ? (
+    <div className="flex justify-center">
+        <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
+            <h1 className="font-bold text-4xl py-8 text-center">Volunteer Opportunities</h1>
             {posts
-              .slice()
-              .reverse()
-              .map((post, index) => (
-                <Volunteer post={post} key={post.eventid} />
-              ))}
-          </div>
+                .slice()
+                .reverse()
+                .map((post, index) => (
+                    <Volunteer post={post} key={post.eventid} />
+                ))}
         </div>
-      )}
+    </div>
+) : (isGrant && !isDonation && !isVolunteer) ? (
+  <div className="flex justify-center">
+  <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
+      <h1 className="font-bold text-4xl py-8 text-center">Grants</h1>
+      {posts
+          .slice()
+          .reverse()
+          .map((post, index) => (
+              <Grant post={post} key={post.eventid} />
+          ))}
+  </div>
+</div>
+) : (
+    <div>No content to display</div>
+)}
     </main>
 
       <Link href="post-volunteer" className="text-blue-600">

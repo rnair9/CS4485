@@ -21,7 +21,7 @@ export default function Home() {
   const fetchVolunteer = async () => {
     const response = await fetch("api/createPost/volunteer");
     const data = await response.json();
-    console.log((await session).user.role);
+    // console.log((await session).user.role);
     setPosts(data.posts);
     setIsDonation(false);
   };

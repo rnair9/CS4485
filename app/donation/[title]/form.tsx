@@ -43,6 +43,7 @@ export default function Form({ params }) {
         alert("Donation processed, and email sent for confirmation")
         router.push("/")
       };
+      
     return (
     <div>
       <form className="m-4 text-center">

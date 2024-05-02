@@ -33,7 +33,7 @@ function Volunteer({ post, sharedBy }) {
             )}
           </div>
           <div className="px-6 py-4 flex justify-center">
-            <Link href="#" passHref className="bg-blue-500 hover:bg-blue-600 text-white font-semibold py-2 px-4 rounded-full transition duration-300">
+            <Link href={"/volunteer_signup/" + post.name} passHref className="bg-blue-500 hover:bg-blue-600 text-white font-semibold py-2 px-4 rounded-full transition duration-300">
                 Volunteer Now
             </Link>
           </div>

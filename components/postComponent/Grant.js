@@ -26,6 +26,7 @@ function Grant({ post, sharedBy }) {
             <h2 className="text-white text-xl font-bold mb-2">{post.name}</h2>
             <p className="text-gray-400 text-sm mt-2">Deadline: {dateFormatted}</p>
             <p className="text-gray-400 text-sm mt-2">Amount ${post.amount}</p>
+            <p className="text-gray-400 text-sm mt-2">Status: {post.status}</p>
             <p className="text-gray-300 text-base">{post.description}</p>
             {sharedBy && (
               <p className="text-gray-400 text-sm mt-2">

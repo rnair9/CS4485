@@ -11,6 +11,7 @@ export default function Home() {
   const [isDonation, setIsDonation] = useState(true);
   const [isGrant, setIsGrant] = useState(false);
   const [isVolunteer, setIsVolunteer] = useState(false);
+  const [userid, setID] = useState(null)
   const session = getSession();
 
   const fetchPosts = async () => {
@@ -46,6 +47,7 @@ export default function Home() {
   useEffect(() => {
     fetchPosts();
   }, []);
+
   return (
     <>
       <main className="min-h-screen items-center justify-between">
@@ -101,7 +103,7 @@ export default function Home() {
                 .slice()
                 .reverse()
                 .map((post, index) => (
-                  <Volunteer post={post} key={post.eventid} />
+                  <Volunteer post={post} key={post.eventid} userId={userid} />
                 ))}
             </div>
           </div>

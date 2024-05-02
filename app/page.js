@@ -11,18 +11,20 @@ export default function Home() {
   const [isDonation, setIsDonation] = useState(true);
   const [isGrant, setIsGrant] = useState(false);
   const [isVolunteer, setIsVolunteer] = useState(false);
-  const [userid, setID] = useState(null)
+  const [userEmail, setEmail] = useState("")
+  const [role, setRole] = useState("")
   const session = getSession();
 
   const fetchPosts = async () => {
     const response = await fetch(`api/createPost/donation`);
     const data = await response.json();
-    // console.log((await session).user)
     // console.log(data.posts)
     setPosts(data.posts);
     setIsDonation(true);
     setIsVolunteer(false);
     setIsGrant(false);
+    setEmail((await session).user.email)
+    setRole((await session).user.role)
   };
 
   const fetchVolunteer = async () => {
@@ -88,7 +90,7 @@ export default function Home() {
                   .slice()
                   .reverse()
                   .map((post, index) => (
-                    <Post post={post} key={post.initiativeid} />
+                    <Post post={post} key={post.initiativeid} email={userEmail} role={role}/>
                   ))}
               </div>
             </div>
@@ -103,7 +105,7 @@ export default function Home() {
                 .slice()
                 .reverse()
                 .map((post, index) => (
-                  <Volunteer post={post} key={post.eventid} userId={userid} />
+                  <Volunteer post={post} key={post.eventid} />
                 ))}
             </div>
           </div>

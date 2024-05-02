@@ -3,7 +3,7 @@ import Link from "next/link";
 import { getSession, signOut } from "next-auth/react";
 import { useEffect, useState } from "react";
 
-export default function Navbar({ session }) {
+export default function Navbar({ session }){
   const [userType, setType] = useState("");
   // console.log(session)
   const handleClick = async () => {
@@ -22,7 +22,7 @@ export default function Navbar({ session }) {
 
   useEffect(() => {
     handleUser();
-  }, [userType]);
+  }, []);
 
   return (
     <nav className="bg-gray-800">

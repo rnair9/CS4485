@@ -19,7 +19,7 @@ function Post({ post, sharedBy }) {
           </div>
           <div className="px-6 py-4">
             <h2 className="text-white text-xl font-bold mb-2">{post.name}</h2>
-            <p className="text-gray-400 text-sm mt-2">{post.category}</p>
+            <p className="text-gray-400 text-sm mt-2"><b>Category: </b>{post.category}</p>
             <p className="text-gray-300 text-base">{post.description}</p>
             {sharedBy && (
               <p className="text-gray-400 text-sm mt-2">

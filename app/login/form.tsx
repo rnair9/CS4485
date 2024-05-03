@@ -20,6 +20,9 @@ export default function Form() {
             router.push("/");
             router.refresh();
         }
+        else {
+            alert('Invalid credentials. Please try again.')
+        }
         
     }
 

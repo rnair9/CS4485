@@ -7,6 +7,18 @@ export async function GET(request: Request) {
     // console.log(id)
     const response = await sql `SELECT * FROM Nonprofit WHERE nonprofitid=${id}`;
     const user = response.rows[0];
-    // console.log(user)
-    return NextResponse.json({ user: user });
+    const individualHistory = await sql `select individual.firstname as fname, individual.lastname as lname, initiative.name as iname, amount, is_anonymous
+                                        from individual,initiative,individualinitiativedonations
+                                        where initiative.nonprofitid = ${id}
+                                        AND individualinitiativedonations.initiativeid = initiative.initiativeid
+                                        AND individualinitiativedonations.individualid = individual.individualid`
+    
+    const companyHistory = await sql `select company.name as cname, initiative.name as iname, amount, is_anonymous
+                                      from company,initiative,companyinitiativedonations
+                                      where initiative.nonprofitid = ${id}
+                                      AND companyinitiativedonations.initiativeid = initiative.initiativeid
+                                      AND companyinitiativedonations.companyid = company.companyid`
+    const individual_history = individualHistory.rows;
+    const company_history = companyHistory.rows;
+    return NextResponse.json({ user: user, individualHistory: individual_history, companyHistory: company_history });
   }

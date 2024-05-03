@@ -10,6 +10,8 @@ export default function Profile({params}) {
     const [email, setEmail] = useState("")
     const [logo, setLogo] = useState("")
     const [description, setDescription] = useState("")
+    const [individualHistory, setIndividualHistory] = useState([])
+    const [companyHistory, setCompanyHistory] = useState([])
 
     const session = getSession()
 
@@ -27,6 +29,8 @@ export default function Profile({params}) {
         setEmail(data.user.email)
         setName(data.user.name)
         setLogo(imgString)
+        setIndividualHistory(data.individualHistory)
+        setCompanyHistory(data.companyHistory)
     }
     
       useEffect(() => {
@@ -54,6 +58,42 @@ export default function Profile({params}) {
         <div className="px-6">
           <div className="flex flex-col gap-4 pt-4 w-full">
             <h1>Donors List</h1>
+            <h2>Companies:</h2>
+            <table>
+            <tbody>
+              <tr>
+                <th>Company</th>
+                <th>Initiative</th>
+                <th>Amount (USD)</th>
+              </tr>
+              {companyHistory!=[] && companyHistory.map(donation => 
+              <tr key={donation.cname}>
+                <td>{donation.is_anonymous ? "Anonymous" : donation.cname}</td>
+                <td>{donation.iname}</td>
+                <td>{donation.amount}</td>
+              </tr>
+              )}
+            </tbody>  
+          </table>
+          <h2>Individuals:</h2>
+            <table>
+            <tbody>
+              <tr>
+                <th>First Name</th>
+                <th>Last Name</th>
+                <th>Initiative</th>
+                <th>Amount (USD)</th>
+              </tr>
+              {individualHistory!=[] && individualHistory.map(donation => 
+              <tr key={donation.fname + donation.lname}>
+                <td>{donation.is_anonymous ? "Anonymous" : donation.fname}</td>
+                <td>{donation.is_anonymous ? "N/A" : donation.lname}</td>
+                <td>{donation.iname}</td>
+                <td>{donation.amount}</td>
+              </tr>
+              )}
+            </tbody>  
+          </table>
           </div>
         </div>
       </div>

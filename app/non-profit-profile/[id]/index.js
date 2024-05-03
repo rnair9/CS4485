@@ -46,8 +46,8 @@ export default function Profile({params}) {
       <div className="container flex gap-14">
         <div>
           <img
-            src="https://www.placeofhope.com/wp-content/uploads/woocommerce-placeholder.png"
-            className="rounded-full"
+            src="https://miro.medium.com/v2/resize:fit:1400/1*WQlvxGQtWTjXWyVcn7F0Xw.jpeg"
+            className="rounded-full max-w-64"
           />
           <div className="container divide-y divide-black my-4">
             <p className="font-bold pb-4 px-2">Email: {email}</p>

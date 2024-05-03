@@ -40,8 +40,8 @@ export default function Profile({ params }) {
         <div className="container flex gap-14">
           <div style={{ width: 600 }}>
             <img
-              src="https://www.placeofhope.com/wp-content/uploads/woocommerce-placeholder.png"
-              className="rounded-full"
+              src="https://parsadi.com/wp-content/uploads/2022/05/Company.jpg"
+              className="rounded-full max-w-72"
             />
           </div>
           <div className="py-12">

@@ -12,6 +12,7 @@ export default function Profile({params}) {
     const [description, setDescription] = useState("")
     const [individualHistory, setIndividualHistory] = useState([])
     const [companyHistory, setCompanyHistory] = useState([])
+    const [grantHistory, setGrantHistory] = useState([])
 
     const session = getSession()
 
@@ -31,6 +32,7 @@ export default function Profile({params}) {
         setLogo(imgString)
         setIndividualHistory(data.individualHistory)
         setCompanyHistory(data.companyHistory)
+        setGrantHistory(data.grantHistory)
     }
     
       useEffect(() => {
@@ -90,6 +92,23 @@ export default function Profile({params}) {
                 <td>{donation.is_anonymous ? "N/A" : donation.lname}</td>
                 <td>{donation.iname}</td>
                 <td>{donation.amount}</td>
+              </tr>
+              )}
+            </tbody>  
+          </table>
+          <h2>Grants:</h2>
+            <table>
+            <tbody>
+              <tr>
+                <th>Grant Name</th>
+                <th>Amount (USD)</th>
+                <th>Status</th>
+              </tr>
+              {grantHistory!=[] && grantHistory.map(grant => 
+              <tr key={grant.name}>
+                <td>{grant.name}</td>
+                <td>{grant.amount}</td>
+                <td>{grant.status=="Open" ? "Pending" : "Received"}</td>
               </tr>
               )}
             </tbody>  

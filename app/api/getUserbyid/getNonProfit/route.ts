@@ -18,7 +18,14 @@ export async function GET(request: Request) {
                                       where initiative.nonprofitid = ${id}
                                       AND companyinitiativedonations.initiativeid = initiative.initiativeid
                                       AND companyinitiativedonations.companyid = company.companyid`
+    
+    const grantHistory = await sql `select name, amount, status 
+                                    from grants, grantapplications
+                                    where grantapplications.nonprofitid=${id}
+                                    and grantapplications.grantid=grants.grantid`
+
     const individual_history = individualHistory.rows;
     const company_history = companyHistory.rows;
-    return NextResponse.json({ user: user, individualHistory: individual_history, companyHistory: company_history });
+    const grant_history = grantHistory.rows;
+    return NextResponse.json({ user: user, individualHistory: individual_history, companyHistory: company_history, grantHistory: grant_history });
   }

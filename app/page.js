@@ -117,7 +117,7 @@ export default function Home() {
                 .slice()
                 .reverse()
                 .map((post, index) => (
-                  <Grant post={post} key={post.eventid} />
+                  <Grant post={post} key={post.eventid} role={role} />
                 ))}
             </div>
           </div>

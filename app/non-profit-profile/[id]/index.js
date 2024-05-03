@@ -3,7 +3,7 @@ import { getSession } from "next-auth/react";
 import { useState, useEffect } from "react";
 import Link from "next/link";
 
-export default function Profile() {
+export default function Profile({params}) {
 
     const [name, setName] = useState("")
     const [category, setCategory] = useState("")
@@ -15,10 +15,10 @@ export default function Profile() {
 
 
     const fetchUser = async () => {
-        // console.log(session)
-        const email = (await session).user.email
-        const response = await fetch(`api/getUser/getNonProfit?email=${email}`);
+      // console.log(params)
+        const response = await fetch(`/api/getUserbyid/getNonProfit?nonprofitid=${params}`);
         const data = await response.json();
+        console.log(data.user)
         let base64 = new Buffer.from(data.user.logo, "base64")
         const imgString="data:image/jpg;base64,"+base64.toString("base64")
         // console.log(imgString)
@@ -52,12 +52,6 @@ export default function Profile() {
           </div>
         </div>
         <div className="px-6">
-          <p className="font-bold text-xl pb-4">Total raised: $ 3131.31</p>
-          <div>
-          <Link href="#" passHref className="bg-blue-500 hover:bg-blue-600 text-white font-semibold py-2 px-4 rounded-full transition duration-300">
-                Donate Now
-            </Link>
-          </div>
           <div className="flex flex-col gap-4 pt-4 w-full">
             <h1>Donors List</h1>
           </div>

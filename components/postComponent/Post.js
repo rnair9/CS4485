@@ -6,12 +6,14 @@ import { useEffect, useState } from "react";
 
 function Post({ post, sharedBy, email, role }) {
   const [isRightUser, setIsRightUser] = useState(false)
+  const [userid, setID] = useState("")
   const session = getSession()
 
   const fetchUser = async () => {
     const email = (await session).user.email
     const response = await fetch(`api/getUser/getNonProfit?email=${email}`);
     const data = await response.json();
+    setID(post.nonprofitid)
     if(data.user.nonprofitid == post.nonprofitid){
       setIsRightUser(true)
     }
@@ -58,15 +60,30 @@ function Post({ post, sharedBy, email, role }) {
               </Link>
             </div>
           ) : role ==="Nonprofit" ? (
-            <></>
+            <><div className="px-6 py-4 flex justify-center">
+            <Link
+              href={"/non-profit-profile/" + userid}
+              passHref
+              className="bg-blue-500 hover:bg-blue-600 text-white font-semibold mx-2 py-2 px-4 rounded-full transition duration-300"
+            >
+              Non-profit Profile
+            </Link>
+          </div></>
           ) : (
             <div className="px-6 py-4 flex justify-center">
               <Link
                 href={"/donation/" + post.category}
                 passHref
-                className="bg-blue-500 hover:bg-blue-600 text-white font-semibold py-2 px-4 rounded-full transition duration-300"
+                className="bg-blue-500 hover:bg-blue-600 text-white font-semibold mx-2 py-2 px-4 rounded-full transition duration-300"
               >
                 Donate Now
+              </Link>
+              <Link
+                href={"/non-profit-profile/" + userid}
+                passHref
+                className="bg-blue-500 hover:bg-blue-600 text-white font-semibold mx-2 py-2 px-4 rounded-full transition duration-300"
+              >
+                Non-profit Profile
               </Link>
             </div>
           )}

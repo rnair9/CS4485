@@ -48,7 +48,7 @@ const handleSendEmail = async (e) => {
   };
 
   const handleRole = async()=>{
-    setRole((await session).user.role)
+      setRole((await session).user.role)
   }
 
   useEffect(() => {

@@ -1,10 +1,11 @@
 "use client";
 import Link from "next/link";
 import { getSession, signOut } from "next-auth/react";
-import { useEffect, useState } from "react";
+import { useEffect, useId, useState } from "react";
 
 export default function Navbar({ session }){
   const [userType, setType] = useState("");
+  const [userId, setId] = useState(null)
   // console.log(session)
   const handleClick = async () => {
     try {
@@ -16,9 +17,20 @@ export default function Navbar({ session }){
   
   const handleUser = async () => {
     const session1 = getSession();
-    console.log((await session1).user.role)
-    setType((await session1).user.role);
+    let type = ((await session1).user.role)
+    let email = ((await session1).user.email)
+    setType(type);
+    getUser(type, email)
   };
+
+  const getUser = async(type, email) =>{
+    if(type==="Company"){
+        const response = await fetch(`api/getUser/getCompany?email=${email}`);
+        const data = await response.json();
+        // console.log(data.user.companyid)
+        setId(data.user.companyid)
+    }
+  }
 
   useEffect(() => {
     handleUser();
@@ -79,7 +91,7 @@ export default function Navbar({ session }){
                 <>
                   <Link
                     className="text-gray-300 hover:bg-gray-700 hover:text-white px-3 py-2 rounded-md text-sm font-medium"
-                    href="/company-profile"
+                    href={"/company-profile/"+userId}
                   >
                     Profile
                   </Link>

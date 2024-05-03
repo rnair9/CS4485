@@ -4,6 +4,7 @@ import {useRouter} from "next/navigation";
 
 
 export default function Form() {
+    const router = useRouter()
     const handleSubmit = async (e: FormEvent<HTMLFormElement>) => {
         e.preventDefault();
         const formData = new FormData(e.currentTarget);
@@ -22,6 +23,8 @@ export default function Form() {
             const responseData = await(response.json())
             if (responseData.message != "success") {
                 alert('Invalid registration information. Please try again.')
+            }else{
+                router.push("/login")
             }
         }
         else if (formData.get("accountType")=="Company") {
@@ -40,6 +43,8 @@ export default function Form() {
             console.log({responseData})
             if (responseData.message != "success") {
                 alert('Invalid registration information. Please try again.')
+            }else{
+                router.push("/login")
             }
         }
         else if (formData.get("accountType")=="Nonprofit") {
@@ -58,11 +63,13 @@ export default function Form() {
             const responseData = await(response.json())
             if (responseData.message != "success") {
                 alert('Invalid registration information. Please try again.')
-            }     
+            } else{
+                router.push("/login")
+            }
+
             }
             
         
-       
     }
     const [accountType, setAccountType] = useState("Individual")
 

@@ -7,6 +7,7 @@ export default function Profile() {
   const [email, setEmail] = useState("")
   const [logo, setLogo] = useState("")
   const [description, setDescription] = useState("")
+  const [history, setHistory] = useState([])
   
   const router = useRouter();
     const session = getSession()
@@ -25,6 +26,7 @@ export default function Profile() {
         setEmail(data.user.email)
         setName(data.user.name)
         setLogo(imgString)
+        setHistory(data.history)
     }
     
       useEffect(() => {
@@ -65,8 +67,27 @@ export default function Profile() {
 			  </div>
 			</div>
 		  </div>
+      <p className="font-bold pb-4 px-2">Previous Donations:</p>
+          <table>
+            <tbody>
+              <tr>
+                <th>Nonprofit</th>
+                <th>Initiative</th>
+                <th>Amount (USD)</th>
+              </tr>
+              {history!=[] && history.map(donation => 
+              <tr key={donation.iname}>
+                <td>{donation.npname}</td>
+                <td>{donation.iname}</td>
+                <td>{donation.amount}</td>
+              </tr>
+              )}
+            </tbody>  
+          </table>
         </div>
+        
       </div>
+      
 	  </>
     )
     }

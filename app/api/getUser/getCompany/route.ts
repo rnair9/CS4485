@@ -8,5 +8,11 @@ export async function GET(request: Request) {
     const response = await sql `SELECT * FROM Company WHERE email=${email}`;
     const user = response.rows[0];
     // console.log(user)
-    return NextResponse.json({ user: user });
+    const donationHistory = await sql `select nonprofit.name AS npname, initiative.name as iname, amount 
+                                        from nonprofit,initiative,companyinitiativedonations
+                                        where companyinitiativedonations.companyid = ${user.companyid} 
+                                        AND companyinitiativedonations.initiativeid = initiative.initiativeid
+                                        AND initiative.nonprofitid = nonprofit.nonprofitid`
+    const history = donationHistory.rows;
+    return NextResponse.json({ user: user, history: history });
   }

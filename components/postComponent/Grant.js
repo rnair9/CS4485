@@ -67,7 +67,8 @@ function Grant({ post, sharedBy, role, email }) {
           </div>
           {role === "Individual" ? (
             <></>
-          ) : role === "Company" ? (
+          ) : (role !== "Individual" && role !== "Nonprofit" && 
+          'Company')?(<></>) : (role === "Company") ? (
             <div className="px-6 py-4 flex justify-center">
               <Link
                 href={"/company-profile/" + post.companyid}

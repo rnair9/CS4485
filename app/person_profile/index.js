@@ -74,10 +74,7 @@ export default function Profile() {
                       <td>{donation.amount}</td>
                     </tr>
                    )}
-                  </tbody>
-                  
-                  
-                    
+                  </tbody>  
                 </table>
 
               </div>

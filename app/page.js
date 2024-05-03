@@ -105,7 +105,7 @@ export default function Home() {
                 .slice()
                 .reverse()
                 .map((post, index) => (
-                  <Volunteer post={post} key={post.eventid} />
+                  <Volunteer post={post} key={post.eventid} email={userEmail} role={role}/>
                 ))}
             </div>
           </div>

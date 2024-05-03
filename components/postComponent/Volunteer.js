@@ -1,13 +1,33 @@
+"use client";
 import Link from "next/link";
 import Image from "next/image";
+import { getSession } from "next-auth/react";
+import { useEffect, useState } from "react";
 
-function Volunteer({ post, sharedBy }) {
+function Volunteer({ post, sharedBy, email, role }) {
+  const [isRightUser, setIsRightUser] = useState(false)
+  const session = getSession()
+
     var date = new Date(post.eventdate)
     const dateFormatted = new Intl.DateTimeFormat("en-US", {
         year: "numeric",
         month: "2-digit",
         day: "2-digit"
       }).format(date);
+
+      const fetchUser = async () => {
+        const email = (await session).user.email
+        const response = await fetch(`api/getUser/getNonProfit?email=${email}`);
+        const data = await response.json();
+        console.log(post)
+        if(data.user.nonprofitid == post.nonprofitid){
+          setIsRightUser(true)
+        }
+    }
+    
+      useEffect(() => {
+        fetchUser()
+      });
   
   return (
     <div className="flex justify-center">
@@ -32,11 +52,25 @@ function Volunteer({ post, sharedBy }) {
               </p>
             )}
           </div>
-          <div className="px-6 py-4 flex justify-center">
-            <Link href={"/volunteer_signup/" + post.name} passHref className="bg-blue-500 hover:bg-blue-600 text-white font-semibold py-2 px-4 rounded-full transition duration-300">
+          {(role === "Nonprofit" && isRightUser) ? (
+            <div className="px-6 py-4 flex justify-center">
+              <Link
+                href={"/updateVolunteer/" + post.eventid}
+                passHref
+                className="bg-blue-500 hover:bg-blue-600 text-white font-semibold py-2 px-4 rounded-full transition duration-300"
+              >
+                Update
+              </Link>
+            </div>
+          ) : role ==="Nonprofit" ? (
+            <></>
+          ) : (
+            <div className="px-6 py-4 flex justify-center">
+              <Link href={"/volunteer_signup/" + post.name} passHref className="bg-blue-500 hover:bg-blue-600 text-white font-semibold py-2 px-4 rounded-full transition duration-300">
                 Volunteer Now
             </Link>
-          </div>
+            </div>
+          )}
         </div>
       </div>
     </div>

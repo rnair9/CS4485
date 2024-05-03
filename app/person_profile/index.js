@@ -24,7 +24,7 @@ export default function Profile() {
     const email = (await session).user.email;
     const response = await fetch(`api/getUser/getIndividual?email=${email}`);
     const data = await response.json();
-    console.log(data)
+    // console.log(data)
     setEmail(data.user.email);
     setFirstName(data.user.firstname);
     setLastName(data.user.lastname);

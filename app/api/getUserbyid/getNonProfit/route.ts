@@ -20,9 +20,8 @@ export async function GET(request: Request) {
                                       AND companyinitiativedonations.companyid = company.companyid`
     
     const grantHistory = await sql `select name, amount, status 
-                                    from grants, grantapplications
-                                    where grantapplications.nonprofitid=${id}
-                                    and grantapplications.grantid=grants.grantid`
+                                    from grants
+                                    where awardedto=${id}`
 
     const individual_history = individualHistory.rows;
     const company_history = companyHistory.rows;

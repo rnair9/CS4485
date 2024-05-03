@@ -102,13 +102,11 @@ export default function Profile({params}) {
               <tr>
                 <th>Grant Name</th>
                 <th>Amount (USD)</th>
-                <th>Status</th>
               </tr>
               {grantHistory!=[] && grantHistory.map(grant => 
               <tr key={grant.name}>
                 <td>{grant.name}</td>
                 <td>{grant.amount}</td>
-                <td>{grant.status=="Open" ? "Pending" : "Received"}</td>
               </tr>
               )}
             </tbody>  

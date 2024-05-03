@@ -8,6 +8,7 @@ function Grant({ post, sharedBy }) {
         month: "2-digit",
         day: "2-digit"
       }).format(date);
+      // console.log(post)
   
   return (
     <div className="flex justify-center">
@@ -35,8 +36,11 @@ function Grant({ post, sharedBy }) {
             )}
           </div>
           <div className="px-6 py-4 flex justify-center">
-            <Link href="#" passHref className="bg-blue-500 hover:bg-blue-600 text-white font-semibold py-2 px-4 rounded-full transition duration-300">
+            <Link href="#" passHref className="bg-blue-500 hover:bg-blue-600 text-white font-semibold py-2 px-4 mx-2 rounded-full transition duration-300">
                 Apply
+            </Link>
+            <Link href={"/company-profile/"+post.companyid} passHref className="bg-blue-500 hover:bg-blue-600 text-white font-semibold py-2 px-4 mx-2 rounded-full transition duration-300">
+                Go to Profile
             </Link>
           </div>
         </div>

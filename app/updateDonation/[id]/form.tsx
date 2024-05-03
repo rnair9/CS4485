@@ -1,6 +1,7 @@
 "use client";
 import { FormEvent, useEffect,useState } from "react";
 import { useRouter } from "next/navigation";
+import { getSession } from "next-auth/react";
 
 export default function Form({params}) {
     const [desc, setDescription] = useState("")
@@ -9,6 +10,7 @@ export default function Form({params}) {
         description: desc
     });
     const router = useRouter()
+    const session = getSession()
 
     const handleSubmit = async (e: FormEvent<HTMLFormElement>) => {
         e.preventDefault();
@@ -33,12 +35,16 @@ export default function Form({params}) {
     };
 
     const fetchInitiative =async()=>{
-        const id = params
-        const response = await fetch(`/api/updatePost/Initiative?id=${id}`);
-        const data = await response.json()
-        console.log(data.posts)
-        setDescription(data.posts.description)
-        setCategory(data.posts.category)
+        if((await session).user.role === "Nonprofit"){
+            const id = params
+            const response = await fetch(`/api/updatePost/Initiative?id=${id}`);
+            const data = await response.json()
+            console.log(data.posts)
+            setDescription(data.posts.description)
+            setCategory(data.posts.category)
+        }else{
+            router.push("/")
+        }
     }
     useEffect(() => {
         fetchInitiative()

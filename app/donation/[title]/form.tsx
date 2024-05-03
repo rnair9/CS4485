@@ -39,6 +39,7 @@ export default function Form({ params }) {
 
     const handleSendEmail = async (e) => {
         e.preventDefault()
+        console.log(formData.email)
         await sendEmail(`${formData.email}`, `Donation`, ` <div className="p-8 bg-gray-100"><div className="max-w-xl mx-auto bg-white p-8 rounded-lg shadow-md"><p className="mb-4">Dear ${formData.firstName} ${formData.lastName},</p><h1 className="text-3xl font-bold mb-4">Thank You for Your Donation!</h1><p className="mb-4">We want to express our sincere gratitude for your generous donation of $${formData.donationAmount}.</p><p className="mb-4">Thank you for your generous donation; your support is invaluable to our nonprofit's mission</p><p className="mb-4">Here is the billing address we have on file:</p><address className="mb-4">${formData.streetAddress}<br />${formData.city}, ${formData.state} ${formData.zip}</address><p className="mb-4">Thank you once again for your kindness and generosity.</p><p className="mb-4">Best regards,</p><p>CauseWay Team</p></div></div>`);
         alert("Donation processed, and email sent for confirmation")
         router.push("/")

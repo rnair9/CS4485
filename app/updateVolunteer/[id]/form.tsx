@@ -4,16 +4,15 @@ import { useRouter } from "next/navigation";
 
 export default function Form({params}) {
     const [desc, setDescription] = useState("")
-    const [cat, setCategory] = useState("")
     const [formData, setFormData] = useState({
-        description: desc
+        description: desc,
     });
     const router = useRouter()
 
     const handleSubmit = async (e: FormEvent<HTMLFormElement>) => {
         e.preventDefault();
         const formData = new FormData(e.currentTarget);
-        const response = await fetch(`/api/updatePost/Initiative`, {
+        const response = await fetch(`/api/updatePost/Volunteer`, {
             method: "PUT",
             body: JSON.stringify({
                 id: params,
@@ -34,11 +33,9 @@ export default function Form({params}) {
 
     const fetchInitiative =async()=>{
         const id = params
-        const response = await fetch(`/api/updatePost/Initiative?id=${id}`);
+        const response = await fetch(`/api/updatePost/Volunteer?id=${id}`);
         const data = await response.json()
-        console.log(data.posts)
         setDescription(data.posts.description)
-        setCategory(data.posts.category)
     }
     useEffect(() => {
         fetchInitiative()

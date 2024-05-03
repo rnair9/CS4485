@@ -7,6 +7,13 @@ export async function GET(request: Request) {
     // console.log(email)
     const response = await sql `SELECT * FROM Individual WHERE email=${email}`;
     const user = response.rows[0];
+    const donationHistory = await sql `select nonprofit.name AS npname, initiative.name as iname, amount 
+                                from nonprofit,initiative,individualinitiativedonations
+                                where individualinitiativedonations.individualid = ${user.individualid} 
+                                AND individualinitiativedonations.initiativeid = initiative.initiativeid
+                                AND initiative.nonprofitid = nonprofit.nonprofitid
+                                `
     // console.log(user)
-    return NextResponse.json({ user: user });
+    const history = donationHistory.rows;
+    return NextResponse.json({ user: user, history: history });
   }

@@ -19,7 +19,7 @@ export default function Form() {
             }
             
         );
-            console.log({response})
+            //console.log({response})
         }
         else if (formData.get("accountType")=="Company") {
             const response = await fetch(`/api/auth/registerCompany`, {
@@ -32,7 +32,7 @@ export default function Form() {
                     logo: formData.get("companylogo"),
                 }),
             });
-            console.log({response})
+            //console.log({response})
         }
         else if (formData.get("accountType")=="Nonprofit") {
             const response = await fetch(`/api/auth/registerNonprofit`, {
@@ -46,7 +46,7 @@ export default function Form() {
                     category: formData.get("nonprofitcategory"),
                 }),
             });
-            console.log({response})
+            //console.log({response})
             
             }
             

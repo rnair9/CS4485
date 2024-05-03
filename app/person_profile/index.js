@@ -8,9 +8,13 @@ export default function Profile() {
   const [firstname, setFirstName] = useState("");
   const [lastname, setLastName] = useState("");
   const [email, setEmail] = useState("");
+  const [history, setHistory] = useState([])
 
   const session = getSession();
   const router = useRouter();
+
+
+  
 
   const fetchUser = async () => {
     // console.log((await session).user.role)
@@ -24,6 +28,9 @@ export default function Profile() {
     setEmail(data.user.email);
     setFirstName(data.user.firstname);
     setLastName(data.user.lastname);
+    setHistory(data.history)
+    
+    
   };
 
   useEffect(() => {
@@ -46,12 +53,33 @@ export default function Profile() {
             </div>
             <div className="px-6">
               <div className="box-content  h-76 w-64 p-4 border-4 bg-gray-400">
-                <h2 className="font-bold text-xl pb-4">Organizations </h2>
+                {/*<h2 className="font-bold text-xl pb-4">Organizations </h2>
                 <p className="py-4 px-2">Make-A-Wish</p>
                 <p className="py-4 px-2">Save Children</p>
                 <p className="py-4 px-2">Save Children</p>
                 <p className="py-4 px-2">Save Children</p>
-                <p className="py-4 px-2">Save Children</p>
+                <p className="py-4 px-2">Save Children</p>*/}
+                <p className="font-bold pb-4 px-2">Previous Donations:</p>
+                <table>
+                  <tbody>
+                    <tr>
+                      <th>Nonprofit</th>
+                      <th>Initiative</th>
+                      <th>Amount (USD)</th>
+                    </tr>
+                    {history!=[] && history.map(donation => 
+                    <tr key={donation.iname}>
+                      <td>{donation.npname}</td>
+                      <td>{donation.iname}</td>
+                      <td>{donation.amount}</td>
+                    </tr>
+                   )}
+                  </tbody>
+                  
+                  
+                    
+                </table>
+
               </div>
             </div>
           </div>

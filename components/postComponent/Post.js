@@ -75,7 +75,17 @@ function Post({ post, sharedBy, email, role }) {
               Non-profit Profile
             </Link>
           </div></>
-          ):(
+          ): (role ==="Company" || role === "Individual") ? (
+            <><div className="px-6 py-4 flex justify-center">
+            <Link
+              href={"/non-profit-profile/" + userid}
+              passHref
+              className="bg-blue-500 hover:bg-blue-600 text-white font-semibold mx-2 py-2 px-4 rounded-full transition duration-300"
+            >
+              Non-profit Profile
+            </Link>
+          </div></>
+          ): (
             <div className="px-6 py-4 flex justify-center">
               <Link
                 href={"/donation/" + post.category}
@@ -84,13 +94,7 @@ function Post({ post, sharedBy, email, role }) {
               >
                 Donate Now
                 </Link>
-                <Link
-              href={"/non-profit-profile/" + post.nonprofitid}
-              passHref
-              className="bg-blue-500 hover:bg-blue-600 text-white font-semibold mx-2 py-2 px-4 rounded-full transition duration-300"
-            >
-              Non-profit Profile
-            </Link>
+                
             </div>
           )}
         </div>

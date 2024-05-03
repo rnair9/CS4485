@@ -80,11 +80,6 @@ export default function Profile() {
               </div>
             </div>
           </div>
-          <div className="px-6">
-            <p className="font-bold text-xl pb-2 py-10">
-              Total donated: $ 340.65
-            </p>
-          </div>
         </div>
       </div>
     </>

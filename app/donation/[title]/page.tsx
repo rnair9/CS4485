@@ -1,10 +1,16 @@
 "use client";
 import Form from './form';
+import {redirect} from "next/navigation";
+import { getSession } from 'next-auth/react';
 
-export default function Donation ({params}){
-  return (
-    <div>
-      <Form params={params.title}/>
-    </div>
-  );
+export default async function Donation ({params}){
+    const session = await getSession();
+    if (!session) {
+        redirect("/");
+    }
+    return (
+        <>
+        <Form params={params.title}/>
+        </>
+    );
 };

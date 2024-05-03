@@ -1,9 +1,11 @@
-import { useState } from 'react';
+"use client"
+import { FormEvent, useEffect, useState } from 'react';
 import sendEmail from '../../email-utility';
 import { useRouter } from 'next/navigation'
+import { getSession } from "next-auth/react";
+
 
 export default function Form({ params }) {
-    // console.log(params)
     const router = useRouter()
     const [formData, setFormData] = useState({
         firstName: '',
@@ -18,8 +20,68 @@ export default function Form({ params }) {
         cardNumber: '',
         expirationDate: '',
         cvv: '',
-        anonymousDonation: false
+        remember: false
     });
+
+    const session = getSession();
+    const [userId, setUserId] = useState(null);
+    const [accountType, setAccountType] = useState(null);
+    const getUser = async () => {
+        const email = (await session).user.email;
+        const userType = (await session).user.role;
+        setAccountType(userType);
+        if(userType == "Individual"){
+            const response = await fetch(`/api/donation/getIndividualId?email=${email}`)
+            const data = await response.json();
+            //console.log("DATA  ", data);
+            setUserId(data.user);
+        }
+        else if (userType == "Company"){
+            const response = await fetch(`/api/donation/getCompanyID?email=${email}`)
+            const data = await response.json();
+            console.log("data ", data.user);
+            setUserId(data.user);
+        }
+    }
+    const handleSubmit = async (e: FormEvent<HTMLFormElement>) => {
+        e.preventDefault();
+        //console.log("formdata before--> ", ${formData.email})
+        const formData2 = new FormData(e.currentTarget);
+        console.log("formdata this--> ", formData.donationAmount)
+        if (accountType=="Individual") {
+            const response = await fetch(`/api/donation`, {
+                method:"POST",
+                body: JSON.stringify({
+                    individualid: userId,
+                    initiativeid: params,
+                    amount: formData.donationAmount,
+                    is_anonymous: formData.remember
+                }),
+            });
+            const data = await response.json()
+            console.log(data);
+        }
+        else if (accountType=="Company") {
+
+            const response = await fetch(`/api/donation/compDonate`, {
+                method:"POST",
+                body: JSON.stringify({
+                    companyid: userId,
+                    initiativeid: params,
+                    amount: formData.donationAmount,
+                    is_anonymous: formData.remember
+                }),
+            });
+            const data = await response.json()
+            console.log(data);
+        }
+    }
+
+    const fetchUser = async () => {
+        const response = await fetch(`/api/donation/compDonate`);
+        const data = await response.json();
+        console.log(data)
+    }
 
     const handleInputChange = (e) => {
         const { id, value } = e.target;
@@ -39,17 +101,21 @@ export default function Form({ params }) {
 
     const handleSendEmail = async (e) => {
         e.preventDefault()
+        //handleSubmit(e);
         await sendEmail(`${formData.email}`, `Donation`, ` <div className="p-8 bg-gray-100"><div className="max-w-xl mx-auto bg-white p-8 rounded-lg shadow-md"><p className="mb-4">Dear ${formData.firstName} ${formData.lastName},</p><h1 className="text-3xl font-bold mb-4">Thank You for Your Donation!</h1><p className="mb-4">We want to express our sincere gratitude for your generous donation of $${formData.donationAmount}.</p><p className="mb-4">Thank you for your generous donation; your support is invaluable to our nonprofit's mission</p><p className="mb-4">Here is the billing address we have on file:</p><address className="mb-4">${formData.streetAddress}<br />${formData.city}, ${formData.state} ${formData.zip}</address><p className="mb-4">Thank you once again for your kindness and generosity.</p><p className="mb-4">Best regards,</p><p>CauseWay Team</p></div></div>`);
         alert("Donation processed, and email sent for confirmation")
         router.push("/")
       };
+    
+    useEffect(() => {
+        getUser();
+      });
       
     return (
     <div>
-      <form className="m-4 text-center">
+      <form onSubmit = {handleSubmit} className="m-4 text-center">
         <h1 className="font-bold text-4xl p-4 flex justify-center"> DONATE</h1>
-        {/* We will pull post info from database and put the name here and use it on email as well */}
-        <p>You are donating for {params}</p>
+
         <h2 className="text-left container text-3xl p-2">Payment Information</h2>
         <div className="grid gap-6 mb-6 md:grid-cols-4">
           <input

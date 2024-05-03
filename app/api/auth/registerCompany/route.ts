@@ -11,7 +11,8 @@ export async function POST(request: Request) {
         `INSERT INTO Company (email, password, name, logo, description, role)
         VALUES (${email},${hashedPassword},${name},${logo},${description}, 'Company')`;
     } catch (e) {
-        console.log({e});
+        //console.log({e});
+        return NextResponse.json({message: "not successful"});
     }
     return NextResponse.json({message: "success"});
 }

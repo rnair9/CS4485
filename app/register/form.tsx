@@ -16,10 +16,13 @@ export default function Form() {
                     firstName: formData.get("firstname"),
                     lastName: formData.get("lastname"),
                 }),
-            }
-            
+            }   
         );
             //console.log({response})
+            const responseData = await(response.json())
+            if (responseData.message != "success") {
+                alert('Invalid registration information. Please try again.')
+            }
         }
         else if (formData.get("accountType")=="Company") {
             const response = await fetch(`/api/auth/registerCompany`, {
@@ -33,6 +36,11 @@ export default function Form() {
                 }),
             });
             //console.log({response})
+            const responseData = await response.json();
+            console.log({responseData})
+            if (responseData.message != "success") {
+                alert('Invalid registration information. Please try again.')
+            }
         }
         else if (formData.get("accountType")=="Nonprofit") {
             const response = await fetch(`/api/auth/registerNonprofit`, {
@@ -47,7 +55,10 @@ export default function Form() {
                 }),
             });
             //console.log({response})
-            
+            const responseData = await(response.json())
+            if (responseData.message != "success") {
+                alert('Invalid registration information. Please try again.')
+            }     
             }
             
         

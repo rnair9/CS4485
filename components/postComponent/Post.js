@@ -85,16 +85,23 @@ function Post({ post, sharedBy, email, role }) {
             >
               Non-profit Profile
             </Link>
-          </div></>
-          ): (
-            <div className="px-6 py-4 flex justify-center">
-              <Link
+            <Link
                 href={"/donation/" + post.initiativeid}
                 passHref
                 className="bg-blue-500 hover:bg-blue-600 text-white font-semibold mx-2 py-2 px-4 rounded-full transition duration-300"
               >
                 Donate Now
-                </Link>
+            </Link>
+          </div></>
+          ): (
+            <div className="px-6 py-4 flex justify-center">
+              <Link
+                href="/login"
+                passHref
+                className="bg-blue-500 hover:bg-blue-600 text-white font-semibold mx-2 py-2 px-4 rounded-full transition duration-300"
+              >
+                Donate Now
+            </Link>
                 
             </div>
           )}

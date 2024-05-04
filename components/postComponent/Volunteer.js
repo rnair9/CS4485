@@ -64,9 +64,15 @@ function Volunteer({ post, sharedBy, email, role }) {
             </div>
           ) : role ==="Nonprofit" ? (
             <></>
-          ) : (
-            <div className="px-6 py-4 flex justify-center">
+          ) : (role ==="Company" || role === "Individual") ?
+           ( <div className="px-6 py-4 flex justify-center">
               <Link href={"/volunteer_signup/" + post.name} passHref className="bg-blue-500 hover:bg-blue-600 text-white font-semibold py-2 px-4 rounded-full transition duration-300">
+                Volunteer Now
+            </Link>
+            </div>
+          ): (
+            <div className="px-6 py-4 flex justify-center">
+              <Link href="/login" passHref className="bg-blue-500 hover:bg-blue-600 text-white font-semibold py-2 px-4 rounded-full transition duration-300">
                 Volunteer Now
             </Link>
             </div>

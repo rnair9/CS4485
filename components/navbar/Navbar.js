@@ -47,7 +47,12 @@ export default function Navbar({ session }){
         <div className="flex items-center justify-between h-16">
           <div className="flex items-center">
             <div className="flex-shrink-0">
-              <span className="text-white">CauseWay</span>
+              <Link 
+              href="/"
+              className="text-white"
+              >
+                CauseWay
+              </Link>
             </div>
           </div>
           <div className="hidden md:block">
